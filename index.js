@@ -6,6 +6,16 @@ const app = express();
 let PORT = 5000;
 app.use(express.json());
 
+import { rateLimit } from 'express-rate-limit';
+
+//create a rate limit
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message : "You have exceeded the 5 requests in 15 minutes limit!"});
+
+app.use(limiter);
+
 // Middleware to serve static files
 app.use("/tools", express.static("assets"));
 

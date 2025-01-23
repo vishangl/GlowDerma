@@ -9,8 +9,9 @@
   "keywords": [],
   "author": "vishang",
   "license": "ISC",
-  "type" : "module",
+  "type": "module",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0"
   }
 }
