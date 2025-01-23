@@ -1,13 +1,31 @@
 import express from "express";
+import fs from 'fs';
 
 const app = express();
+
 let PORT = 5000;
 app.use(express.json());
+
+// Middleware to serve static files
+app.use("/tools", express.static("assets"));
+
+
+// Middleware to log all requests
+app.use((req,res,next) => {
+  let logdata = `${new Date()} | ${req.method} | ${req.url} | ${req.ip}`;
+  console.log(logdata);
+  fs.appendFile("log.txt", logdata, (err) => {
+    if(err) throw err;
+  })
+  next();
+})
 
 // Home Route
 app.get("/", (req, res) => {
     res.send("<h1>Welcome to GlowDerma - Your Skincare Journey Begins Here.</h1>");
 });
+
+
 
 // About Route
 app.get("/about", (req, res) => {
@@ -81,6 +99,8 @@ app.post("/cart", (req, res) => {
         });
     }
 
+    
+
     // Form cart object
     const cartItem = { id, name, price, availableQty, quantity};
 
@@ -101,5 +121,5 @@ app.get("*", (req, res) => {
 
 // Start Server
 app.listen(PORT, () => {
-    console.log(`server is running on port http://localhost:${PORT}`);
+    console.log(`Server is running on port http://localhost:${PORT}`);
 });
