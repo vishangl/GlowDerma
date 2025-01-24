@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f4f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        main {
+            padding: 3rem 2rem;
+            max-width: 1100px;
+            margin: 3rem auto;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .card p strong {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .card em {
+            font-style: italic;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .stars {
+            color: #ffcc00;
+        }
+
+        .unavailable {
+            opacity: 0.6;
+            background-color: #f8d7da;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .unavailable-text {
+            color: red;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customer Testimonials</h1>
+    </header>
+
+    <main>
+        <section class="testimonial-grid">
+            {{#each testimonials}}
+            <div class="card">
+                <h3>{{name}}</h3>
+                <p><strong>Rating:</strong> <span class="stars">{{renderStars rating}}</span></p>
+                <p>"{{comment}}"</p>
+                <p><em>{{formatDate date}}</em></p>
+            </div>
+            {{/each}}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Your Company. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,10 +1,16 @@
 import express from "express";
 import fs from 'fs';
+import hbs from 'hbs'
 
 const app = express();
 
 let PORT = 5000;
 app.use(express.json());
+
+// set the view engine to handlebars
+app.set("view engine","hbs");
+
+app.set("views","views");
 
 import { rateLimit } from 'express-rate-limit';
 
@@ -122,12 +128,75 @@ app.post("/cart", (req, res) => {
     });
 });
 
+
+
+// Serve static files (optional, for CSS or JS files)
+app.use(express.static("public"));
+
+// Mock data for products
+const products = {
+    skincare: {
+        name: "Anti-Acne Cream",
+        description: "A revolutionary formula designed to fight acne and restore your skin's natural glow.",
+        features: [
+            "Reduces acne and blemishes",
+            "Made with natural ingredients",
+            "Dermatologist-tested and approved",
+            "Free from harmful chemicals"
+        ],
+        price: "$29.99",
+        launchDate: "March 15, 2025"
+    },
+    haircare: {
+        name: "Hair Growth Serum",
+        description: "A premium serum to strengthen and promote healthy hair growth.",
+        features: [
+            "Reduces hair fall",
+            "Promotes new hair growth",
+            "Suitable for all hair types",
+            "Infused with essential oils"
+        ],
+        price: "$39.99",
+        launchDate: "April 10, 2025"
+    },
+    wellness: {
+        name: "Immunity Booster",
+        description: "A natural supplement to boost your immunity and overall health.",
+        features: [
+            "Made from organic ingredients",
+            "Rich in antioxidants",
+            "Supports energy levels",
+            "Improves overall well-being"
+        ],
+        price: "$19.99",
+        launchDate: "February 20, 2025"
+    }
+};
+
+// Dynamic route to handle different products
+app.get("/:serviceName", (req, res) => {
+    const serviceName = req.params.serviceName;
+
+    // Check if the product exists
+    if (products.serviceName) {
+        res.render("index", {
+            product: products[serviceName],
+            data: serviceName
+        });
+    } else {
+        res.status(404).send("Product not found");
+    }
+});
+
+
 // Handle Undefined Routes
 app.get("*", (req, res) => {
     res.status(404).json({
         "error": "Route not found"
     });
 });
+
+
 
 // Start Server
 app.listen(PORT, () => {

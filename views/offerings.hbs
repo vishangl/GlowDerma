@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            padding: 3rem 2rem;
+            max-width: 900px;
+            margin: 3rem auto;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        section h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        section p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        section p strong {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2);
+        }
+
+        .unavailable {
+            opacity: 0.6;
+            background-color: #f8d7da;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .unavailable-text {
+            color: red;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Our Premium Offerings</h1>
+    </header>
+
+    <section>
+        {{#each offerings}}
+        <div class="card {{#if available}}available{{else}}unavailable{{/if}}">
+            <h3>{{name}}</h3>
+            <p><strong>Price:</strong> ₹{{price}}</p>
+            <p><strong>Duration:</strong> {{duration}}</p>
+            <p>{{description}}</p>
+            {{#unless available}}
+            <div class="unavailable">
+                <p class="unavailable-text">Currently Unavailable</p>
+            </div>
+            {{/unless}}
+        </div>
+        {{/each}}
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Company Name. All rights reserved.</p>
+    </footer>
+</body>
+</html>
